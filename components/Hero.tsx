@@ -1,129 +1,97 @@
 "use client";
-// components/HeroSection.tsx
-import { motion } from "framer-motion";
-import Image from "next/image";
-import React from "react";
 
-export default function HeroSection() {
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const slides = [
+  {
+    image: "/image1.jpg",
+    title: "Where Elegance Meets Every Wag",
+    subtitle: "All-natural luxury fragrances crafted with love for your dog.",
+  },
+  {
+    image: "/image2.jpg",
+    title: "Scents Tailored for Pure Companionship",
+    subtitle: "A fragrance experience as unique as your furry friend.",
+  },
+  {
+    image: "/image3.jpg",
+    title: "Unleash Sophistication",
+    subtitle: "For those who believe their pets deserve a touch of luxury.",
+  },
+];
+
+export default function HeroImages() {
+  const [index, setIndex] = useState(0);
+
+  // Auto-slide every 4.5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % slides.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="relative overflow-hidden bg-[#FAF8F5]">
-      {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-[#F4EFE8] rounded-full blur-3xl opacity-60 translate-x-[-30%] translate-y-[-30%]" />
-      <div className="absolute bottom-0 right-0 w-72 h-72 bg-[#C5A45A]/20 rounded-full blur-3xl translate-x-[40%] translate-y-[40%]" />
+    <section className="relative w-full min-h-screen bg-amber-950 text-white overflow-hidden flex flex-col">
+      {/* === Image Slideshow === */}
+      <div className="relative w-full h-[60vh] sm:h-screen overflow-hidden">
+        {slides.map((slide, i) => (
+          <motion.img
+            key={slide.image}
+            src={slide.image}
+            alt={slide.title}
+            className="absolute inset-0 w-full h-[90%] object-cover sm:object-cover bg-black"
+            initial={false}
+            animate={{
+              opacity: i === index ? 1 : 0,
+              scale: i === index ? 1 : 1.05,
+            }}
+            transition={{
+              duration: 1,
+              ease: "easeInOut",
+            }}
+            style={{ willChange: "opacity, transform" }}
+          />
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/60 pointer-events-none sm:block hidden" />
+      </div>
 
-      <div className="container mx-auto px-6 md:px-10 lg:px-16 py-20 md:py-28 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-        {/* Text Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center lg:text-left"
-        >
-          <p className="text-sm uppercase tracking-[0.2em] text-gray-500">
-            All-natural · Gentle · Premium
-          </p>
-
-          <h1
-            className="mt-4 text-4xl sm:text-5xl md:text-6xl font-serif font-medium text-[#111]
-          leading-tight max-w-xl mx-auto lg:mx-0"
-          >
-            Dog perfume that smells as good as it feels
-          </h1>
-
-          <p className="mt-6 text-gray-700 text-base md:text-lg max-w-md mx-auto lg:mx-0">
-            Indulge your dog with clean, skin-safe, and cruelty-free fragrances
-            crafted from natural ingredients. Luxury care that feels good — and
-            smells even better.
-          </p>
-
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a
-              href="#shop"
-              className="px-8 py-3 rounded-full bg-gradient-to-br from-[#C5A45A] to-[#B5974E] text-white text-sm font-medium shadow-md hover:shadow-lg transition-transform transform hover:scale-[1.02]"
-            >
-              Shop Now
-            </a>
-            <a
-              href="#about"
-              className="px-8 py-3 rounded-full border border-[#E8E4DB] text-sm text-[#222] hover:bg-[#F7F5F1] transition-colors"
-            >
-              Learn More
-            </a>
-          </div>
-
-          <div className="mt-10 flex flex-wrap gap-6 justify-center lg:justify-start text-gray-600 text-sm">
-            <div className="flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="w-5 h-5"
-              >
-                <path
-                  d="M12 2v6m0 0l3 3m-3-3l-3 3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <span>100% Natural</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="w-5 h-5"
-              >
-                <path
-                  d="M4 7h16M4 12h8m-8 5h16"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <span>Safe for all coats</span>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Image */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
-          className="relative w-full max-w-[500px] mx-auto lg:max-w-none"
-        >
-          <div className="aspect-[4/5] w-full rounded-[2rem] overflow-hidden shadow-2xl relative">
-            <Image
-              src="/images/hero.jpg"
-              alt="Woman cuddling dog on sofa"
-              fill
-              priority
-              className="object-cover"
-            />
-          </div>
-
-          {/* Floating Accent Card */}
+      {/* === Text Content === */}
+      <div className="relative z-20 flex flex-col items-center text-center px-6 py-1 sm:py-0 sm:absolute sm:inset-0 sm:items-start sm:justify-center sm:text-left sm:px-16">
+        <AnimatePresence mode="wait">
           <motion.div
+            key={slides[index].title}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.7 }}
-            className="absolute -bottom-8 -left-8 bg-white shadow-xl rounded-2xl px-5 py-4 flex items-center gap-3 max-w-[240px] border border-[#F1EEE8]"
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="max-w-3xl"
           >
-            <div className="w-10 h-10 rounded-full bg-[#F4EFE8] grid place-items-center text-[#B5974E] text-xl">
-              🐾
-            </div>
-            <div>
-              <p className="text-sm font-medium text-[#111]">
-                Loved by pet parents
-              </p>
-              <p className="text-xs text-gray-500">98% would recommend</p>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight drop-shadow-xl">
+              {slides[index].title}
+            </h1>
+
+            <p className="mt-4 text-base sm:text-lg text-white/90 max-w-xl mx-auto sm:mx-0">
+              {slides[index].subtitle}
+            </p>
+
+            <div className="mt-8 flex flex-wrap justify-center sm:justify-start gap-4">
+              <a
+                href="#shop"
+                className="px-8 py-3 rounded-full bg-gradient-to-br from-[#C5A45A] to-[#B5974E] text-white text-sm font-medium shadow-md hover:shadow-lg hover:scale-[1.03] transition-transform"
+              >
+                Shop Now
+              </a>
+              <a
+                href="#about"
+                className="px-8 py-3 rounded-full border border-white/30 text-sm text-white hover:bg-white/10 transition-colors"
+              >
+                Learn More
+              </a>
             </div>
           </motion.div>
-        </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

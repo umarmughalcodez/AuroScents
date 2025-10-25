@@ -29,7 +29,6 @@ export const DraggableCardBody = ({
     bottom: 0,
   });
 
-  // physics biatch
   const velocityX = useVelocity(mouseX);
   const velocityY = useVelocity(mouseY);
 
@@ -41,25 +40,24 @@ export const DraggableCardBody = ({
 
   const rotateX = useSpring(
     useTransform(mouseY, [-300, 300], [25, -25]),
-    springConfig,
+    springConfig
   );
   const rotateY = useSpring(
     useTransform(mouseX, [-300, 300], [-25, 25]),
-    springConfig,
+    springConfig
   );
 
   const opacity = useSpring(
     useTransform(mouseX, [-300, 0, 300], [0.8, 1, 0.8]),
-    springConfig,
+    springConfig
   );
 
   const glareOpacity = useSpring(
     useTransform(mouseX, [-300, 0, 300], [0.2, 0, 0.2]),
-    springConfig,
+    springConfig
   );
 
   useEffect(() => {
-    // Update constraints when component mounts or window resizes
     const updateConstraints = () => {
       if (typeof window !== "undefined") {
         setConstraints({
@@ -72,14 +70,8 @@ export const DraggableCardBody = ({
     };
 
     updateConstraints();
-
-    // Add resize listener
     window.addEventListener("resize", updateConstraints);
-
-    // Clean up
-    return () => {
-      window.removeEventListener("resize", updateConstraints);
-    };
+    return () => window.removeEventListener("resize", updateConstraints);
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -109,30 +101,22 @@ export const DraggableCardBody = ({
       ref={cardRef}
       drag
       dragConstraints={constraints}
-      onDragStart={() => {
-        document.body.style.cursor = "grabbing";
-      }}
+      onDragStart={() => (document.body.style.cursor = "grabbing")}
       onDragEnd={(event, info) => {
         document.body.style.cursor = "default";
 
         controls.start({
           rotateX: 0,
           rotateY: 0,
-          transition: {
-            type: "spring",
-            ...springConfig,
-          },
+          transition: { type: "spring", ...springConfig },
         });
-        const currentVelocityX = velocityX.get();
-        const currentVelocityY = velocityY.get();
 
-        const velocityMagnitude = Math.sqrt(
-          currentVelocityX * currentVelocityX +
-            currentVelocityY * currentVelocityY,
-        );
-        const bounce = Math.min(0.8, velocityMagnitude / 1000);
+        const vx = velocityX.get();
+        const vy = velocityY.get();
+        const vMag = Math.sqrt(vx * vx + vy * vy);
+        const bounce = Math.min(0.8, vMag / 1000);
 
-        animate(info.point.x, info.point.x + currentVelocityX * 0.3, {
+        animate(info.point.x, info.point.x + vx * 0.3, {
           duration: 0.8,
           ease: [0.2, 0, 0, 1],
           bounce,
@@ -141,8 +125,7 @@ export const DraggableCardBody = ({
           damping: 15,
           mass: 0.8,
         });
-
-        animate(info.point.y, info.point.y + currentVelocityY * 0.3, {
+        animate(info.point.y, info.point.y + vy * 0.3, {
           duration: 0.8,
           ease: [0.2, 0, 0, 1],
           bounce,
@@ -159,20 +142,20 @@ export const DraggableCardBody = ({
         willChange: "transform",
       }}
       animate={controls}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.03 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "relative min-h-96 w-80 overflow-hidden rounded-md bg-neutral-100 p-6 shadow-2xl transform-3d dark:bg-neutral-900",
-        className,
+        // ↓ Responsive sizing
+        "relative overflow-hidden rounded-lg shadow-2xl transform-3d p-3 sm:p-4 md:p-6 bg-neutral-100 dark:bg-neutral-900 " +
+          "w-48 h-60 sm:w-60 sm:h-72 md:w-80 md:min-h-96",
+        className
       )}
     >
       {children}
       <motion.div
-        style={{
-          opacity: glareOpacity,
-        }}
-        className="pointer-events-none absolute inset-0 bg-white select-none"
+        style={{ opacity: glareOpacity }}
+        className="pointer-events-none absolute inset-0 bg-white/10 select-none"
       />
     </motion.div>
   );

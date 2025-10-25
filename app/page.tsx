@@ -7,7 +7,9 @@ const App = () => {
   return (
     <div>
       <HeroSection />
-      <DraggableCardDemo />
+
+      {/* <Hero /> */}
+      {/* <DraggableCardDemo /> */}
     </div>
   );
 };

@@ -50,10 +50,10 @@ const DogPerfumeProducts = () => {
   }, []);
 
   return (
-    <>
+    <div className="bg-amber-50">
       <Toaster />
-      <div className="max-w-[1200px] mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
+      <div className="max-w-[1200px] mx-auto px-4 py-16 ">
+        <h2 className="text-5xl font-bold text-center mb-12 text-amber-900">
           Luxury Dog Colognes
         </h2>
 
@@ -133,7 +133,7 @@ const DogPerfumeProducts = () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

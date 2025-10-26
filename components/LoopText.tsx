@@ -129,7 +129,7 @@ const LoopText: FC<CurvedLoopProps> = ({
 
   return (
     <div
-      className="py-8 flex items-center justify-center w-full"
+      className="py-3 flex items-center justify-center w-full h-full mb-[-40px] mt-12 bg-amber-50"
       style={{ visibility: ready ? "visible" : "hidden", cursor: cursorStyle }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}

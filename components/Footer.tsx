@@ -1,41 +1,46 @@
 "use client";
+
 import React from "react";
 import { AiFillYoutube } from "react-icons/ai";
 import { FaInstagram, FaTiktok } from "react-icons/fa";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import Image from "next/image";
-// import logo from "@/public/Logo.png";
 
 const Footer = () => {
   const router = useRouter();
+
+  const footerLinks = [
+    {
+      title: "Menu",
+      links: [
+        { name: "Shop", path: "/shop" },
+        { name: "About", path: "/about" },
+        { name: "FAQ", path: "/faq" },
+        { name: "Blog", path: "/blog" },
+        { name: "Reviews", path: "/reviews" },
+        { name: "Community", path: "/community" },
+      ],
+    },
+    {
+      title: "Policy",
+      links: [
+        { name: "Privacy Policy", path: "/privacy-policy" },
+        { name: "Terms of Service", path: "/terms-of-service" },
+        { name: "Refund Policy", path: "/refund-policy" },
+      ],
+    },
+  ];
 
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
-  const footerLinks = [
-    {
-      title: "Menu",
-      links: ["Shop", "About", "FAQ", "Blog", "Reviews", "Community"],
-    },
-    {
-      title: "Policy",
-      links: ["Privacy Policy", "Terms of Service", "Refund policy"],
-    },
-    {
-      title: "Contact",
-      links: [
-        "Support",
-        "AuroScents",
-        "382 NE 191st St",
-        "Miami, FL 33179",
-        "(754) 300-8057",
-        "admin@auroscents.com",
-      ],
-    },
+  const socialIcons = [
+    { icon: FaInstagram, link: "#" },
+    { icon: FaTiktok, link: "#" },
+    { icon: AiFillYoutube, link: "#" },
   ];
 
   return (
@@ -44,7 +49,7 @@ const Footer = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="w-full bg-[#F8F7F3] text-[#1A1A1A] py-12 px-6 md:px-16 flex flex-col gap-10"
+      className="w-full bg-amber-950 text-white py-12 px-6 md:px-16"
     >
       {/* Top Section */}
       <div className="flex flex-col lg:flex-row justify-between gap-10">
@@ -56,25 +61,31 @@ const Footer = () => {
           viewport={{ once: true }}
           className="flex-1"
         >
-          {/* <Image
-            src={logo}
-            alt="AuroScents Logo"
-            width={180}
-            height={80}
-            className="cursor-pointer mb-4"
-            onClick={() => router.push("/")}
-          /> */}
-          <p>AuroScents</p>
-          <p className="text-sm leading-relaxed text-[#3A3A3A] max-w-sm">
-            AuroScents was made to turn your dog&apos;s coat into a playground
-            for your hands and face. We focus on using safe ingredients and
-            avoid harsh chemicals that irritate your dog&apos;s skin. Enjoy
-            longer cuddles, closer together.
+          <p className="text-3xl text-[#E7C57D] mb-3 font-semibold">
+            AuroScents
+          </p>
+          <p className="text-sm leading-relaxed text-white max-w-sm">
+            Transform your dog&apos;s coat with premium natural colognes. Safe
+            ingredients, gentle on skin, and long-lasting fragrance for happy
+            pets and owners.
+          </p>
+
+          {/* Email */}
+          <p className="mt-4 text-white">
+            Contact us:{" "}
+            <Button
+              variant={"link"}
+              effect={"hoverUnderline"}
+              onClick={() => router.push("mailto:admin@auroscents.com")}
+              className="text-white hover:text-[#E7C57D] transition-colors p-0"
+            >
+              admin@auroscents.com
+            </Button>
           </p>
         </motion.div>
 
         {/* Links */}
-        <div className="flex flex-wrap justify-between gap-10 flex-1">
+        <div className="flex flex-wrap justify-start flex-1 gap-20">
           {footerLinks.map((section, index) => (
             <motion.div
               key={index}
@@ -82,47 +93,57 @@ const Footer = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
+              className="min-w-[120px]"
             >
-              <h3 className="font-semibold text-lg mb-3">{section.title}</h3>
-              <ul className="space-y-2 text-sm">
+              <h3 className="font-semibold mb-3 text-2xl">{section.title}</h3>
+              <div className="flex flex-col items-start gap-2">
                 {section.links.map((link, i) => (
-                  <li
+                  <Button
                     key={i}
-                    className="hover:text-[#5C715E] transition-colors cursor-pointer"
+                    className="hover:text-[#E7C57D] transition-colors cursor-pointer text-white p-0"
+                    effect={"hoverUnderline"}
+                    variant={"link"}
+                    onClick={() => router.push(link.path)}
                   >
-                    {link}
-                  </li>
+                    {link.name}
+                  </Button>
                 ))}
-              </ul>
+              </div>
             </motion.div>
           ))}
         </div>
       </div>
 
       {/* Divider */}
-      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-300 to-transparent my-8" />
 
       {/* Bottom Section */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
-        {/* Social Links */}
+        {/* Social Icons */}
         <div className="flex items-center gap-4">
-          {[FaInstagram, FaTiktok, AiFillYoutube].map((Icon, i) => (
-            <motion.span
-              key={i}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="bg-[#1A1A1A] text-white p-2 rounded-full cursor-pointer"
-            >
-              <Icon size={18} />
-            </motion.span>
-          ))}
+          {socialIcons.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <motion.a
+                key={i}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="bg-black text-white p-2 rounded-full cursor-pointer"
+              >
+                <Icon size={18} />
+              </motion.a>
+            );
+          })}
         </div>
 
         {/* Country / Payment */}
-        <div className="text-gray-700">America (USD $)</div>
+        <div className="text-white">America (USD $)</div>
 
         {/* Copyright */}
-        <p className="text-gray-600 text-center md:text-right">
+        <p className="text-white text-center md:text-right">
           © 2025, AuroScents. All rights reserved.
         </p>
       </div>

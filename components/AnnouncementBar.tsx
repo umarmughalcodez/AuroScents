@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ShoppingCart, Search, User } from "lucide-react";
-import Link from "next/link";
+import { Button } from "./ui/button"; // your button component
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [showHeader, setShowHeader] = useState(true);
@@ -18,7 +20,6 @@ export default function Header() {
     "🚚 Fast worldwide delivery from the USA!",
   ];
 
-  // Rotate announcements every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % messages.length);
@@ -26,23 +27,23 @@ export default function Header() {
     return () => clearInterval(interval);
   }, []);
 
-  // Detect scroll direction
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
-      // If user scrolls down, hide header. If scrolls up, show.
-      if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        setShowHeader(false);
-      } else {
-        setShowHeader(true);
-      }
+      setShowHeader(currentScrollY < lastScrollY || currentScrollY < 80);
       setLastScrollY(currentScrollY);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Shop", path: "/shop" },
+    { name: "About", path: "/about" },
+    { name: "FAQ", path: "/faq" },
+    { name: "Contact", path: "/contact" },
+  ];
 
   return (
     <motion.header
@@ -70,30 +71,32 @@ export default function Header() {
       {/* 🔸 Navbar */}
       <nav className="w-full flex justify-between items-center px-6 md:px-12 py-4">
         {/* Logo */}
-        <Link
-          href="/"
+        <p className="text-2xl font-heading font-semibold text-amber-950">
+          AuroScents
+        </p>
+        {/* <Button
+          // variant="link"
+          // effect="hoverUnderline"
           className="text-2xl font-heading font-semibold text-charcoal"
+          onClick={() => router.push("/")}
         >
           Auroscents
-        </Link>
+        </Button> */}
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex gap-8 text-gray-800 font-medium">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/shop">Shop</Link>
-          </li>
-          <li>
-            <Link href="/about">About</Link>
-          </li>
-          <li>
-            <Link href="/faq">FAQ</Link>
-          </li>
-          <li>
-            <Link href="/contact">Contact</Link>
-          </li>
+          {navLinks.map((link, i) => (
+            <li key={i}>
+              <Button
+                variant="link"
+                effect="hoverUnderline"
+                onClick={() => router.push(link.path)}
+                className="text-gray-800 p-0"
+              >
+                {link.name}
+              </Button>
+            </li>
+          ))}
         </ul>
 
         {/* Icons */}
@@ -121,21 +124,21 @@ export default function Header() {
         {menuOpen && (
           <div className="absolute top-full left-0 w-full bg-white shadow-md md:hidden animate-slideUp">
             <ul className="flex flex-col items-center gap-4 py-6 text-gray-800 font-medium">
-              <li>
-                <Link href="/">Home</Link>
-              </li>
-              <li>
-                <Link href="/shop">Shop</Link>
-              </li>
-              <li>
-                <Link href="/about">About</Link>
-              </li>
-              <li>
-                <Link href="/faq">FAQ</Link>
-              </li>
-              <li>
-                <Link href="/contact">Contact</Link>
-              </li>
+              {navLinks.map((link, i) => (
+                <li key={i}>
+                  <Button
+                    variant="link"
+                    effect="hoverUnderline"
+                    onClick={() => {
+                      router.push(link.path);
+                      setMenuOpen(false);
+                    }}
+                    className="text-gray-800"
+                  >
+                    {link.name}
+                  </Button>
+                </li>
+              ))}
               <div className="flex items-center gap-6 pt-4">
                 <Search className="w-5 h-5 text-gray-700" />
                 <User className="w-5 h-5 text-gray-700" />

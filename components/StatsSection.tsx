@@ -95,7 +95,7 @@ export default function StatsSection() {
   return (
     <section
       ref={ref}
-      className="relative bg-[#0E1A2B] text-[#F6EAD4] py-24 px-6 overflow-hidden"
+      className="relative bg-amber-950 text-[#F6EAD4] py-24 px-6 overflow-hidden"
     >
       {/* Background glow */}
       <motion.div
@@ -112,7 +112,7 @@ export default function StatsSection() {
           variants={{
             visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
           }}
-          className="text-3xl md:text-5xl font-light tracking-wide text-[#F6EAD4]"
+          className="text-3xl md:text-5xl font-semibold tracking-wide text-[#F6EAD4]"
         >
           Crafted with Care, Loved with Trust
         </motion.h2>
@@ -124,7 +124,7 @@ export default function StatsSection() {
         {stats.map((stat, index) => (
           <motion.div
             key={index}
-            className="flex flex-col items-center justify-center p-6 rounded-2xl bg-[#16233B]/60 backdrop-blur-sm border border-[#E7C57D]/20 hover:bg-[#1C2A44]/80 transition-all duration-300"
+            className="flex flex-col items-center justify-center p-6  rounded-br-[50%] rounded-tl-[50%] bg-amber-900 backdrop-blur-sm border border-[#E7C57D]/20 hover:bg-amber-950 transition-all duration-300"
             initial={{ opacity: 0, y: 30 }}
             animate={controls}
             variants={{
@@ -147,17 +147,17 @@ export default function StatsSection() {
                   />
                 </span>
               ) : (
-                <span className="font-fancy">{stat.start}</span>
+                <span className=" font-fancy">{stat.start}</span>
               )}
               {stat.suffix}
             </h3>
 
-            <p className="text-base font-medium mt-2 text-brandBlack">
+            <p className="text-base font-semibold mt-2 text-brandBlack">
               {stat.label}
             </p>
-            <p className="text-sm mt-2 text-brandGray/80 max-w-xs">
+            {/* <p className="text-sm mt-2 text-brandGray/80 max-w-xs">
               {stat.desc}
-            </p>
+            </p> */}
           </motion.div>
         ))}
       </div>

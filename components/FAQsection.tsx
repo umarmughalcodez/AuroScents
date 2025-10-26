@@ -43,9 +43,9 @@ const FAQ = () => {
   };
 
   return (
-    <section className="w-full bg-[#FAFAFA] py-16 px-4 md:px-8">
+    <section className="w-full bg-amber-50 py-16 px-4 md:px-8">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-semibold text-center text-black mb-10">
+        <h2 className="text-3xl md:text-4xl font-semibold text-center text-amber-900 mb-10">
           Frequently Asked Questions
         </h2>
 
@@ -66,7 +66,7 @@ const FAQ = () => {
               key={index}
               className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                 activeIndex === index
-                  ? "bg-black text-white border-[#C5A44A]"
+                  ? "bg-amber-900 text-white border-[#C5A44A]"
                   : "bg-white border-gray-200"
               }`}
             >
@@ -75,8 +75,8 @@ const FAQ = () => {
                 className="flex justify-between items-center w-full p-5 text-left cursor-pointer font-medium"
               >
                 <span
-                  className={`text-base md:text-lg ${
-                    activeIndex === index ? "text-[#C5A44A]" : "text-gray-800"
+                  className={`text-base md:text-lg font-semibold ${
+                    activeIndex === index ? "text-[#dac078]" : "text-gray-800"
                   }`}
                 >
                   {item.question}

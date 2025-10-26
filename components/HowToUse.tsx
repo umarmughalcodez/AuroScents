@@ -1,21 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles, SprayCan, Brush } from "lucide-react";
+import { Sparkles, SprayCan, Brush, Dog } from "lucide-react";
 
 const steps = [
   {
-    icon: <SprayCan className="w-8 h-8 text-[#C5A45A]" />,
+    icon: <Sparkles className="w-8 h-8 text-[#C5A45A]" />,
     title: "Shake",
     desc: "Gently shake to awaken the natural notes within every bottle.",
   },
   {
-    icon: <Sparkles className="w-8 h-8 text-[#C5A45A]" />,
+    icon: <SprayCan className="w-8 h-8 text-[#C5A45A]" />,
     title: "Spray",
     desc: "A light mist over your pet’s coat brings instant freshness and elegance.",
   },
   {
-    icon: <Brush className="w-8 h-8 text-[#C5A45A]" />,
+    icon: <Dog className="w-8 h-8 text-[#C5A45A]" />,
     title: "Comb",
     desc: "Finish with a soft brush to spread the fragrance evenly and gently.",
   },
@@ -23,7 +23,7 @@ const steps = [
 
 export default function HowToUse() {
   return (
-    <section className="relative w-full bg-[#0B0B0B] text-white py-24 px-6 overflow-hidden">
+    <section className="relative w-full bg-amber-950 text-white py-24 px-6 overflow-hidden">
       {/* Background shimmer */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-tr from-[#C5A45A]/10 via-transparent to-transparent blur-3xl"
@@ -37,9 +37,9 @@ export default function HowToUse() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-5xl font-light tracking-wide"
+          className="text-3xl md:text-5xl font-semibold tracking-wide"
         >
-          Shake. Spray. Comb.
+          Shake → Spray → Comb
         </motion.h2>
 
         <motion.p
@@ -51,7 +51,7 @@ export default function HowToUse() {
           3 easy steps for gentle care
         </motion.p>
 
-        <div className="mt-6 w-24 h-[2px] mx-auto bg-gradient-to-r from-transparent via-[#C5A45A] to-transparent" />
+        <div className="mt-6 w-full h-[1px] mx-auto bg-gradient-to-r from-transparent via-[#C5A45A] to-transparent" />
       </div>
 
       {/* Steps */}
@@ -71,7 +71,7 @@ export default function HowToUse() {
                 {step.icon}
               </div>
             </div>
-            <h3 className="text-xl font-medium tracking-wide mb-3">
+            <h3 className="text-xl font-semibold tracking-wide mb-3">
               {step.title}
             </h3>
             <p className="text-white/70 text-sm max-w-xs">{step.desc}</p>

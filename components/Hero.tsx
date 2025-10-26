@@ -32,7 +32,7 @@ export default function HeroImages() {
   }, []);
 
   return (
-    <section className="relative w-full min-h-screen bg-[#0E1A2B] text-white overflow-hidden flex flex-col">
+    <section className="relative w-full min-h-screen bg-amber-950 text-white overflow-hidden flex flex-col">
       {/* === Image Slideshow === */}
       <div className="relative w-full h-[60vh] sm:h-screen overflow-hidden">
         {slides.map((slide, i) => (
@@ -40,7 +40,7 @@ export default function HeroImages() {
             key={slide.image}
             src={slide.image}
             alt={slide.title}
-            className="absolute inset-0 w-full h-[100%] object-cover sm:object-cover bg-[#0E1A2B]"
+            className="absolute inset-0 w-full h-[100%] object-cover sm:object-cover bg-amber-900"
             initial={false}
             animate={{
               opacity: i === index ? 1 : 0,
@@ -81,12 +81,6 @@ export default function HeroImages() {
                 className="px-8 py-3 rounded-full bg-gradient-to-br from-[#E7C57D] to-[#CFAE64] text-[#0E1A2B] text-sm font-medium shadow-md hover:shadow-lg hover:scale-[1.03] transition-transform"
               >
                 Shop Now
-              </a>
-              <a
-                href="#about"
-                className="px-8 py-3 rounded-full border border-[#E7C57D]/40 text-sm text-[#F6EAD4] hover:bg-[#E7C57D]/10 transition-colors"
-              >
-                Learn More
               </a>
             </div>
           </motion.div>

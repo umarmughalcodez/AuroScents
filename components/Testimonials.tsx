@@ -87,7 +87,7 @@ export default function TestimonialsSection() {
   const displayTestimonials = getDisplayedTestimonials();
 
   return (
-    <section className="relative py-24 px-6 bg-[#f8f9fb] overflow-hidden">
+    <section className="relative py-24 px-6 bg-amber-50 overflow-hidden">
       <div className="max-w-6xl mx-auto text-center">
         {/* Heading */}
         <motion.h2
@@ -95,11 +95,11 @@ export default function TestimonialsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-4xl font-bold text-[#00215B] mb-4"
+          className="text-4xl font-bold text-amber-900 mb-4"
         >
           What Pet Lovers Say
         </motion.h2>
-        <p className="text-gray-600 max-w-lg mx-auto mb-12 text-sm sm:text-base">
+        <p className="text-amber-900 max-w-lg mx-auto mb-12 text-sm sm:text-base">
           Loved by pet owners who care for comfort, elegance, and clean
           fragrances.
         </p>
@@ -119,7 +119,7 @@ export default function TestimonialsSection() {
                 {displayTestimonials.map((t) => (
                   <div
                     key={t.id}
-                    className="bg-white p-8 sm:p-10 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center w-full sm:w-1/3"
+                    className="bg-white p-8 sm:p-10 rounded-2xl shadow-sm border border-amber-700 flex flex-col items-center w-full sm:w-1/3"
                   >
                     <div className="relative w-20 h-20 mb-4">
                       <Image
@@ -133,7 +133,7 @@ export default function TestimonialsSection() {
                       “{t.text}”
                     </p>
                     <div>
-                      <h4 className="font-semibold text-[#00215B] text-base sm:text-lg">
+                      <h4 className="font-semibold text-amber-900 text-base sm:text-lg">
                         {t.name}
                       </h4>
                       <p className="text-gray-500 text-xs sm:text-sm">
@@ -154,7 +154,7 @@ export default function TestimonialsSection() {
                 onClick={() => setCurrent(index)}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
                   current === index
-                    ? "bg-[#00215B] scale-125"
+                    ? "bg-amber-900 scale-125"
                     : "bg-gray-300 hover:bg-gray-400"
                 }`}
               />

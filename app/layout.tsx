@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, EB_Garamond } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import AnnouncementBar from "@/components/AnnouncementBar";
@@ -10,8 +10,13 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const EB = EB_Garamond({
+  variable: "--font-eb",
+  subsets: ["latin"],
+});
+
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-giest-mono",
   subsets: ["latin"],
 });
 
@@ -27,9 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${EB.variable} antialiased bg-amber-50`}>
         <main>
           <AnnouncementBar />
 

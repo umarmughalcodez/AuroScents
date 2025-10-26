@@ -17,9 +17,6 @@ const App = () => {
       <StatsSection />
       <ProductSection />
       <HowToUse />
-      <TestimonialsSection />
-      <AuroStandardSection />
-      <FAQ />
       <LoopText
         marqueeText="Gentle Care, Bold Fragrance ✦ Made for Paws, Loved by Humans ✦ Luxury Scent, Happy Pup ✦ Fresh Fur, Happy Heart ✦ Pure. Calm. Captivating. ✦ The Essence of Confidence ✦ Spray Joy, Smell Love ✦
 "
@@ -29,6 +26,9 @@ const App = () => {
         interactive={true}
         className="text-[#D4AF37] bg-red-500"
       />
+      <TestimonialsSection />
+      <AuroStandardSection />
+      <FAQ />
 
       {/* <Hero /> */}
       {/* <DraggableCardDemo /> */}

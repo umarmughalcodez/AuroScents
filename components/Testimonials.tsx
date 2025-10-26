@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function TestimonialsSection() {
   const testimonials = [
@@ -58,15 +57,12 @@ export default function TestimonialsSection() {
   ];
 
   const [current, setCurrent] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(3);
 
-  // Number of visible testimonials based on screen size
-  const getVisibleCount = () =>
-    typeof window !== "undefined" && window.innerWidth < 768 ? 1 : 3;
-
-  const [visibleCount, setVisibleCount] = useState(getVisibleCount());
-
+  // Adjust visible cards based on screen size
   useEffect(() => {
-    const handleResize = () => setVisibleCount(getVisibleCount());
+    const handleResize = () => setVisibleCount(window.innerWidth < 768 ? 1 : 3);
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -74,38 +70,21 @@ export default function TestimonialsSection() {
   // Auto-slide every 3 seconds
   useEffect(() => {
     const timer = setInterval(() => {
-      handleNext();
-    }, 3000);
+      setCurrent((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
     return () => clearInterval(timer);
-  });
+  }, [testimonials.length]);
 
-  const handleNext = () => {
-    setCurrent((prev) =>
-      prev + visibleCount >= testimonials.length ? 0 : prev + visibleCount
-    );
+  const getDisplayedTestimonials = () => {
+    const items = [];
+    for (let i = 0; i < visibleCount; i++) {
+      const index = (current + i) % testimonials.length;
+      items.push(testimonials[index]);
+    }
+    return items;
   };
 
-  const handlePrev = () => {
-    setCurrent((prev) =>
-      prev - visibleCount < 0
-        ? testimonials.length - visibleCount
-        : prev - visibleCount
-    );
-  };
-
-  const visibleTestimonials = testimonials.slice(
-    current,
-    current + visibleCount
-  );
-
-  // Handle wrap-around
-  const displayTestimonials =
-    visibleTestimonials.length < visibleCount
-      ? [
-          ...visibleTestimonials,
-          ...testimonials.slice(0, visibleCount - visibleTestimonials.length),
-        ]
-      : visibleTestimonials;
+  const displayTestimonials = getDisplayedTestimonials();
 
   return (
     <section className="relative py-24 px-6 bg-[#f8f9fb] overflow-hidden">
@@ -126,24 +105,15 @@ export default function TestimonialsSection() {
         </p>
 
         {/* Testimonials Carousel */}
-        <div className="relative flex items-center justify-center">
-          {/* Prev Button */}
-          <button
-            onClick={handlePrev}
-            className="absolute left-0 sm:left-4 top-1/2 -translate-y-1/2 bg-white border border-gray-200 p-3 rounded-full shadow-md hover:bg-gray-100 transition"
-          >
-            <ChevronLeft className="w-5 h-5 text-[#00215B]" />
-          </button>
-
-          {/* Testimonials */}
+        <div className="relative flex flex-col items-center justify-center">
           <div className="flex overflow-hidden w-full justify-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={current}
-                initial={{ x: 300, opacity: 0 }}
+                initial={{ x: 100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -300, opacity: 0 }}
-                transition={{ duration: 0.6 }}
+                exit={{ x: -100, opacity: 0 }}
+                transition={{ duration: 0.5 }}
                 className="flex justify-center gap-6 w-full flex-wrap sm:flex-nowrap"
               >
                 {displayTestimonials.map((t) => (
@@ -176,13 +146,20 @@ export default function TestimonialsSection() {
             </AnimatePresence>
           </div>
 
-          {/* Next Button */}
-          <button
-            onClick={handleNext}
-            className="absolute right-0 sm:right-4 top-1/2 -translate-y-1/2 bg-white border border-gray-200 p-3 rounded-full shadow-md hover:bg-gray-100 transition"
-          >
-            <ChevronRight className="w-5 h-5 text-[#00215B]" />
-          </button>
+          {/* Dots Navigation */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrent(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  current === index
+                    ? "bg-[#00215B] scale-125"
+                    : "bg-gray-300 hover:bg-gray-400"
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

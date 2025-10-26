@@ -9,14 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        gold: "#d1a054", // Elegant golden accent color
-        charcoal: "#1a1a1a", // Deep black alternative
-        offwhite: "#f5f5f5", // Soft background white
+        brandBlack: "#0E0E0E", // elegant black
+        brandWhite: "#FFFFFF", // neutral background
+        brandGold: "#E7C57D", // subtle gold accent
+        brandGray: "#F6F6F6", // soft neutral for backgrounds
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        heading: ["Poppins", "sans-serif"],
+        fancy: ["'Playfair Display'", "serif"], // luxurious font for numbers or headings
       },
+
       container: {
         center: true,
         padding: {

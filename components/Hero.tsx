@@ -24,7 +24,6 @@ const slides = [
 export default function HeroImages() {
   const [index, setIndex] = useState(0);
 
-  // Auto-slide every 4.5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % slides.length);
@@ -33,7 +32,7 @@ export default function HeroImages() {
   }, []);
 
   return (
-    <section className="relative w-full min-h-screen bg-amber-950 text-white overflow-hidden flex flex-col">
+    <section className="relative w-full min-h-screen bg-[#0E1A2B] text-white overflow-hidden flex flex-col">
       {/* === Image Slideshow === */}
       <div className="relative w-full h-[60vh] sm:h-screen overflow-hidden">
         {slides.map((slide, i) => (
@@ -41,7 +40,7 @@ export default function HeroImages() {
             key={slide.image}
             src={slide.image}
             alt={slide.title}
-            className="absolute inset-0 w-full h-[90%] object-cover sm:object-cover bg-black"
+            className="absolute inset-0 w-full h-[100%] object-cover sm:object-cover bg-[#0E1A2B]"
             initial={false}
             animate={{
               opacity: i === index ? 1 : 0,
@@ -54,11 +53,11 @@ export default function HeroImages() {
             style={{ willChange: "opacity, transform" }}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/60 pointer-events-none sm:block hidden" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0E1A2B]/20 via-[#0E1A2B]/40 to-[#0E1A2B]/80 pointer-events-none sm:block hidden" />
       </div>
 
       {/* === Text Content === */}
-      <div className="relative z-20 flex flex-col items-center text-center px-6 py-1 sm:py-0 sm:absolute sm:inset-0 sm:items-start sm:justify-center sm:text-left sm:px-16">
+      <div className="relative z-20 flex flex-col items-center text-center px-6 py-3 sm:py-0 sm:absolute sm:inset-0 sm:items-start sm:justify-center sm:text-left sm:px-16 xl:mt-24 mt-4">
         <AnimatePresence mode="wait">
           <motion.div
             key={slides[index].title}
@@ -68,24 +67,24 @@ export default function HeroImages() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="max-w-3xl"
           >
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight drop-shadow-xl">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight drop-shadow-xl text-white">
               {slides[index].title}
             </h1>
 
-            <p className="mt-4 text-base sm:text-lg text-white/90 max-w-xl mx-auto sm:mx-0">
+            <p className="mt-4 text-base sm:text-lg text-[#EDE4C8]/90 max-w-xl mx-auto sm:mx-0">
               {slides[index].subtitle}
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center sm:justify-start gap-4">
               <a
                 href="#shop"
-                className="px-8 py-3 rounded-full bg-gradient-to-br from-[#C5A45A] to-[#B5974E] text-white text-sm font-medium shadow-md hover:shadow-lg hover:scale-[1.03] transition-transform"
+                className="px-8 py-3 rounded-full bg-gradient-to-br from-[#E7C57D] to-[#CFAE64] text-[#0E1A2B] text-sm font-medium shadow-md hover:shadow-lg hover:scale-[1.03] transition-transform"
               >
                 Shop Now
               </a>
               <a
                 href="#about"
-                className="px-8 py-3 rounded-full border border-white/30 text-sm text-white hover:bg-white/10 transition-colors"
+                className="px-8 py-3 rounded-full border border-[#E7C57D]/40 text-sm text-[#F6EAD4] hover:bg-[#E7C57D]/10 transition-colors"
               >
                 Learn More
               </a>
